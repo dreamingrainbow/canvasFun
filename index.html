@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="En">
+     <head>
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta name="author" content="Michael A. Dennis<michaeladennis@yahoo.com>">
+         
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+         <style>
+             .border-grey
+             {
+                 border: 1px solid #ddd;
+                 border-radius: 4px;
+                 -webkit-transition: border .2s ease-in-out;
+                 -o-transition: border .2s ease-in-out;
+                 transition: border .2s ease-in-out;
+             }
+             .popover{
+                     max-width: 100%; /* Max Width of the popover (depending on the container!) */
+                }
+                
+              /* Hover Color!!*/               
+             
+             ul.hover-secondary>li:hover,
+             span.hover-secondary:hover,
+             p.hover-secondary:hover,
+             div.hover-secondary:hover
+             {
+               background: #868e96;
+               color: #f8f9fa;
+             }
+             
+             ul.hover-light>li:hover,
+             li:hover,
+             span.hover-light:hover,
+             p.hover-light:hover,
+             div.hover-light:hover
+             {
+               background: #f8f9fa;
+               color: #343a40;
+             }
+             
+             ul.hover-dark>li:hover,
+             span.hover-dark:hover,
+             p.hover-dark:hover,
+             div.hover-dark:hover
+             {
+               background: #343a40;
+               color: #f8f9fa;
+             }
+             
+             ul.hover-success>li:hover,
+             span.hover-success:hover,
+             p.hover-success:hover,
+             div.hover-success:hover
+             {
+               background: #28a745;
+               color: #f8f9fa;
+             }
+             
+             ul.hover-info>li:hover,
+             span.hover-info:hover,
+             p.hover-info:hover,
+             div.hover-info:hover
+             {
+               background: #17a2b8;
+               color: #f8f9fa;
+               }
+             
+             ul.hover-warning>li:hover,
+             span.hover-warning:hover,
+             p.hover-warning:hover,
+             div.hover-warning:hover
+             {background: #ffc107;color: #f8f9fa;}
+             
+             ul.hover-danger>li:hover,
+             span.hover-danger:hover,
+             p.hover-danger:hover,
+             div.hover-danger:hover
+             {background: #dc3545;color: #f8f9fa;}
+             
+             ul.hover-primary>li:hover,
+             span.hover-primary:hover,
+             p.hover-primary:hover,
+             div.hover-primary:hover
+             {background: #007bff;color: #f8f9fa;}
+             .h1, h1 {
+                  font-size: 1.6rem;
+              }
+         </style>
+         
+     </head>
+     <body class="bg-light text-dark">       
+         <div class="container-fluid">
+               <section>
+                    <div class="container">                         
+                         <div class="row">
+                                   <fieldset>
+                                        <caption><strong><sub>Fun With Canvas</sub></strong></caption>
+                                        <div style="margin-left:auto;margin-right:auto;width:180px;">
+                                          <canvas id="canvas" width="180" height="200" class="playable-canvas"></canvas>
+                                        </div>
+                                        <hr>
+                                        <div style="margin-left:auto;margin-right:auto;width:200px;">
+                                          <input id="SayMyName" style="width:100%;text-align:center;" placeholder="Enter your text here!"/>
+                                          <button>
+                                          Go!
+                                          </button>
+                                        </div>
+                                   </fieldset>
+                    <hr class="divider"/>
+
+                    </div>
+               </section>
+         </div>
+          <script src="http://code.jquery.com/jquery-3.2.1.js"
+                    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+                    crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script>
+        let defaultText = 'DreamingRainbow.com';
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext("2d");
+        var textarea = document.getElementById('SayMyName');
+        class DrawCanvas {
+            constructor()
+            {
+                this.a = ($('body').css('background-color')).split("(")[1].split(")")[0].split(",");
+                this.b = this.a.map(
+                                (x) => {
+                                            x = parseInt(x).toString(16);
+                                            return (x.length === 1) ? "0"+x : x;
+                                        }
+                                );
+                this.myColor = this.b.join("");
+                this.code = textarea.value;
+                this.oldVal = 0;
+                if (this.code === '') this.code = defaultText;
+            }
+            drawArea() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#' + this.myColor;
+                ctx.fillRect(3, 3, canvas.width-3, canvas.height-3);
+            }
+            drawlSquare() {
+                
+                ctx.moveTo(0,0);
+                ctx.strokeStyle = '#000';
+                ctx.lineTo(0,120);
+                ctx.stroke();
+                ctx.lineTo(120,120);            
+                ctx.stroke();
+                ctx.moveTo(0,0);
+                ctx.lineTo(120,0);            
+                ctx.stroke();
+                ctx.moveTo(120,0);
+                ctx.lineTo(120,120);            
+                ctx.stroke();
+            }
+            redrawl(){
+                this.drawArea();
+                this.drawlSquare();
+            }            
+        }
+        
+        const myCanvas = new DrawCanvas();
+        const mytimer = setInterval(function(){
+            myCanvas.redrawl();
+            }, 1000);
+    </script>
+
+
+
+     </body>
+</html>
