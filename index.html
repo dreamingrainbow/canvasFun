@@ -137,6 +137,8 @@
                 this.code = textarea.value;
                 this.oldVal = 0;
                 if (this.code === '') this.code = defaultText;
+                this.colors = ['#868e96','#f8f9fa','#343a40','#f8f9f','#28a745','#f8f9fa','#17a2b8','#f8f9fa','#ffc107','#f8f9fa','#dc3545','#f8f9fa','#007bff','#f8f9fa'];
+                
             }
             drawArea() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -144,11 +146,10 @@
                 ctx.fillRect(3, 3, canvas.width-3, canvas.height-3);
             }
             drawlSquare() {
-                let colors = ['#868e96','#f8f9fa','#343a40','#f8f9f','#28a745','#f8f9fa','#17a2b8','#f8f9fa','#ffc107','#f8f9fa','#dc3545','#f8f9fa','#007bff','#f8f9fa'];
-                const colorToUse = colors.shift();
+                const colorToUse = this.colors.shift();
                 console.log(colorToUse);
-                console.log(colors);
-                colors.push(colorToUse);
+                console.log(this.colors);
+                this.colors.push(colorToUse);
                 ctx.moveTo(0,0);
                 ctx.strokeStyle = colorToUse;
                 ctx.lineTo(0,120);
